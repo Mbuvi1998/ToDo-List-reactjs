@@ -2,12 +2,15 @@ import useTaskStore from '../store/useTaskStore';
 
 const TaskList = () => {
   const { tasks, removeTask, toggleTask } = useTaskStore();
+  
+  // Sort tasks: incomplete first, completed last
+  const sortedTasks = [...tasks].sort((a, b) => a.completed - b.completed);
 
   return (
     <div>
       <h2 className="text-lg font-semibold mb-4 text-gray-700">Task List</h2>
       <ul className="list-none p-0">
-        {tasks.map(task => (
+        {sortedTasks.map(task => (
           <li key={task.id} className={`flex items-center mb-2 p-2 rounded-md bg-gray-100`}>
             <span className={`flex-grow mr-4 ${task.completed ? 'line-through' : ''}`}>
               {task.title}
@@ -32,3 +35,5 @@ const TaskList = () => {
 }
 
 export default TaskList;
+
+
